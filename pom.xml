@@ -1,78 +1,238 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.sagatechs</groupId>
+	<artifactId>genericWildfly16</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<properties>
+		<!-- Version of BOMs note: a SNAPSHOT version *requires* checkout of BOMs 
+			at https://github.com/wildfly/boms and build through "mvn clean install" -->
+		<version.server.bom>15.0.1.Final</version.server.bom>
+		<adminfaces.version>1.0.0</adminfaces.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<primefaces.version>7.0</primefaces.version>
+		<primefaces-extensions.version>7.0</primefaces-extensions.version>
+		<omnifaces.version>3.2</omnifaces.version>
+		<hibernate-spatial.version>5.3.9.Final</hibernate-spatial.version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
 
-  <groupId>com.codenotfound</groupId>
-  <artifactId>jsf-primefaces-wildfly</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <packaging>war</packaging>
+	<dependencyManagement>
+		<dependencies>
+			<!-- JBoss distributes a complete set of Java EE APIs including a Bill 
+				of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection) 
+				of artifacts. We use this here so that we always get the correct versions 
+				of artifacts. Here we use the jboss-eap-javaee8-with-tools stack (you can 
+				read this as the JBoss stack of the Java EE APIs, with some extras tools 
+				for your project, such as Arquillian for testing) -->
+			<dependency>
+				<groupId>org.wildfly.bom</groupId>
+				<artifactId>wildfly-javaee8-with-tools</artifactId>
+				<version>${version.server.bom}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
-  <name>JSF - PrimeFaces Hello World Example using WildFly and Maven</name>
-  <url>https://www.codenotfound.com/jsf-primefaces-hello-world-example-wildfly-maven.html</url>
+	<dependencies>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <java.version>1.8</java.version>
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>${primefaces.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.omnifaces</groupId>
+			<artifactId>omnifaces</artifactId>
+			<version>${omnifaces.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.primefaces.extensions</groupId>
+			<artifactId>primefaces-extensions</artifactId>
+			<version>${primefaces-extensions.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.adminfaces</groupId>
+			<artifactId>admin-template</artifactId>
+			<version>${adminfaces.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.github.adminfaces</groupId>
+					<artifactId>admin-theme</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.omnifaces</groupId>
+					<artifactId>omnifaces</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>com.github.adminfaces</groupId>
+			<artifactId>admin-theme</artifactId>
+			<version>${adminfaces.version}</version>
+			<!--<classifier>dev</classifier> uncompressed theme.css (note that you 
+				need to exclude admin-theme brought by admin-template dependency) -->
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.spec.javax.servlet</groupId>
+			<artifactId>jboss-servlet-api_4.0_spec</artifactId>
+			<scope>provided</scope>
+		</dependency>
 
-    <servlet.version>3.1.0</servlet.version>
-    <jsf.version>2.2.15</jsf.version>
-    <primefaces.version>6.1</primefaces.version>
+		<dependency>
+			<groupId>javax.security.enterprise</groupId>
+			<artifactId>javax.security.enterprise-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
 
-    <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
-    <wildfly-maven-plugin.version>1.2.1.Final</wildfly-maven-plugin.version>
-  </properties>
+		<!-- Import the JSF API, we use provided scope as the API is included in 
+			JBoss EAP -->
+		<dependency>
+			<groupId>org.jboss.spec.javax.faces</groupId>
+			<artifactId>jboss-jsf-api_2.3_spec</artifactId>
+			<scope>provided</scope>
+		</dependency>
 
-  <dependencies>
-    <!-- Servlet -->
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>javax.servlet-api</artifactId>
-      <version>${servlet.version}</version>
-      <scope>provided</scope>
-    </dependency>
-    <!-- JSF -->
-    <dependency>
-      <groupId>com.sun.faces</groupId>
-      <artifactId>jsf-api</artifactId>
-      <version>${jsf.version}</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.sun.faces</groupId>
-      <artifactId>jsf-impl</artifactId>
-      <version>${jsf.version}</version>
-      <scope>provided</scope>
-    </dependency>
-    <!-- PrimeFaces -->
-    <dependency>
-      <groupId>org.primefaces</groupId>
-      <artifactId>primefaces</artifactId>
-      <version>${primefaces.version}</version>
-    </dependency>
-  </dependencies>
+		<!-- Bean Validation Implementation Provides portable constraints such 
+			as @Email Hibernate Validator is shipped in JBoss EAP -->
+		<dependency>
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<scope>provided</scope>
+		</dependency>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>${maven-compiler-plugin.version}</version>
-        <configuration>
-          <source>${java.version}</source>
-          <target>${java.version}</target>
-        </configuration>
-      </plugin>
-      <!-- wildfly-maven-plugin -->
-      <plugin>
-        <groupId>org.wildfly.plugins</groupId>
-        <artifactId>wildfly-maven-plugin</artifactId>
-        <version>${wildfly-maven-plugin.version}</version>
-        <configuration>
-          <server-args>
-            <server-arg>-Djboss.http.port=9090</server-arg>
-          </server-args>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
+		<!-- Import the JAX-RS API, we use provided scope as the API is included 
+			in JBoss EAP -->
+		<dependency>
+			<groupId>org.jboss.spec.javax.ws.rs</groupId>
+			<artifactId>jboss-jaxrs-api_2.1_spec</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Import the CDI API. -->
+		<dependency>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- "provided" scope used for API's included in JBoss WildFly. -->
+		<!-- EJB -->
+		<!-- Import the Common Annotations API (JSR-250). -->
+		<dependency>
+			<groupId>org.jboss.spec.javax.annotation</groupId>
+			<artifactId>jboss-annotations-api_1.3_spec</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Import the EJB API. -->
+		<dependency>
+			<groupId>org.jboss.spec.javax.ejb</groupId>
+			<artifactId>jboss-ejb-api_3.2_spec</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.spec.javax.xml.bind</groupId>
+			<artifactId>jboss-jaxb-api_2.3_spec</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- not related to jboss-logging-tools, just required for JAX-RS -->
+		<dependency>
+			<groupId>org.jboss.spec.javax.ws.rs</groupId>
+			<artifactId>jboss-jaxrs-api_2.1_spec</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.spec.javax.annotation</groupId>
+			<artifactId>jboss-annotations-api_1.3_spec</artifactId>
+		</dependency>
+		<!-- Import the JPA API. -->
+		<dependency>
+			<groupId>javax.persistence</groupId>
+			<artifactId>javax.persistence-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!--Import dependencies to hibernate packages(eg. hibernate-core) depending 
+			on features you want to use like Hibernate Session used in the quickstart. 
+			Scope is provided because these JARs are shipped with JBoss EAP -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-spatial</artifactId>
+			<version>${hibernate-spatial.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		
+		<!-- Bean Validation Implementation Provides portable constraints such 
+			as @Email Hibernate Validator is shipped in JBoss EAP -->
+		<dependency>
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- jboss-logging API -->
+		<dependency>
+			<groupId>org.jboss.logging</groupId>
+			<artifactId>jboss-logging</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- These dependencies are the jboss-logging tools magic -->
+		<!-- the jboss-logging-tools processor -->
+		<dependency>
+			<groupId>org.jboss.logging</groupId>
+			<artifactId>jboss-logging-processor</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Test scope dependencies -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Optional, but highly recommended -->
+		<!-- Arquillian allows you to test enterprise code such as EJBs and Transactional(JTA) 
+			JPA from JUnit/TestNG -->
+		<dependency>
+			<groupId>org.jboss.arquillian.junit</groupId>
+			<artifactId>arquillian-junit-container</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.arquillian.protocol</groupId>
+			<artifactId>arquillian-protocol-servlet</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+	<build>
+		<!-- Set the name of the WAR, used as the context root when the app is 
+			deployed -->
+		<finalName>${project.artifactId}</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.2.2</version>
+				<configuration>
+					<source>12</source>
+					<target>12</target>
+					<!-- <webappDirectory>/sample/servlet/container/deploy/directory</webappDirectory> -->
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
 </project>
