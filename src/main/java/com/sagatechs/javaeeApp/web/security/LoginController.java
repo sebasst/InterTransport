@@ -2,6 +2,8 @@ package com.sagatechs.javaeeApp.web.security;
 
 import static com.sagatechs.adminfaces.starter.util.Utils.addDetailMessage;
 
+import java.io.IOException;
+
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -26,7 +28,7 @@ public class LoginController {
 
 	@Inject
 	private User user;
-	
+
 	private boolean remember;
 
 	public void login() {
@@ -61,12 +63,17 @@ public class LoginController {
 		}
 
 	}
-	
+
 	public boolean isLoggedIn() {
 		return securityContext.getCallerPrincipal() != null;
 	}
-	
+
 	public String getCurrentUser() {
+		String userName=securityContext.getCallerPrincipal() != null ? securityContext.getCallerPrincipal().getName() : "";
+		return userName;
+	}
+
+	public String getAllRolesUser() {
 		return securityContext.getCallerPrincipal() != null ? securityContext.getCallerPrincipal().getName() : "";
 	}
 
@@ -77,6 +84,16 @@ public class LoginController {
 	public void setRemember(boolean remember) {
 		this.remember = remember;
 	}
+
+	public void doLogout() throws IOException {
+		String loginPage = "/login.xhtml";
+		
+		Faces.getSession().invalidate();
+		ExternalContext ec = Faces.getExternalContext();
+		ec.redirect(ec.getRequestContextPath() + loginPage);
+	}
+
+	
 	
 	
 }

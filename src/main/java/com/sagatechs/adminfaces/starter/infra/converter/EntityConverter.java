@@ -11,6 +11,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.UUID;
 
+@SuppressWarnings("rawtypes")
 @FacesConverter(value = "entityConverter")
 public class EntityConverter implements Converter {
 

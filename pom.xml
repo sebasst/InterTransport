@@ -41,6 +41,22 @@
 	<dependencies>
 
 		<dependency>
+			<groupId>com.nimbusds</groupId>
+			<artifactId>nimbus-jose-jwt</artifactId>
+			<version>5.1</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.json.bind</groupId>
+			<artifactId>javax.json.bind-api</artifactId>
+
+		</dependency>
+		<dependency>
+			<groupId>javax.json</groupId>
+			<artifactId>javax.json-api</artifactId>
+			
+		</dependency>
+
+		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
 			<version>${primefaces.version}</version>
@@ -55,28 +71,8 @@
 			<artifactId>primefaces-extensions</artifactId>
 			<version>${primefaces-extensions.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>com.github.adminfaces</groupId>
-			<artifactId>admin-template</artifactId>
-			<version>${adminfaces.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>com.github.adminfaces</groupId>
-					<artifactId>admin-theme</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.omnifaces</groupId>
-					<artifactId>omnifaces</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>com.github.adminfaces</groupId>
-			<artifactId>admin-theme</artifactId>
-			<version>${adminfaces.version}</version>
-			<!--<classifier>dev</classifier> uncompressed theme.css (note that you 
-				need to exclude admin-theme brought by admin-template dependency) -->
-		</dependency>
+
+
 		<dependency>
 			<groupId>org.jboss.spec.javax.servlet</groupId>
 			<artifactId>jboss-servlet-api_4.0_spec</artifactId>
@@ -97,13 +93,6 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- Bean Validation Implementation Provides portable constraints such 
-			as @Email Hibernate Validator is shipped in JBoss EAP -->
-		<dependency>
-			<groupId>org.hibernate.validator</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<scope>provided</scope>
-		</dependency>
 
 		<!-- Import the JAX-RS API, we use provided scope as the API is included 
 			in JBoss EAP -->
@@ -139,16 +128,8 @@
 			<artifactId>jboss-jaxb-api_2.3_spec</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		<!-- not related to jboss-logging-tools, just required for JAX-RS -->
-		<dependency>
-			<groupId>org.jboss.spec.javax.ws.rs</groupId>
-			<artifactId>jboss-jaxrs-api_2.1_spec</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.jboss.spec.javax.annotation</groupId>
-			<artifactId>jboss-annotations-api_1.3_spec</artifactId>
-		</dependency>
+
+
 		<!-- Import the JPA API. -->
 		<dependency>
 			<groupId>javax.persistence</groupId>
@@ -171,7 +152,7 @@
 			<scope>provided</scope>
 		</dependency>
 
-		
+
 		<!-- Bean Validation Implementation Provides portable constraints such 
 			as @Email Hibernate Validator is shipped in JBoss EAP -->
 		<dependency>
@@ -231,6 +212,30 @@
 					<target>12</target>
 					<!-- <webappDirectory>/sample/servlet/container/deploy/directory</webappDirectory> -->
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>biz.gabrys.maven.plugins</groupId>
+				<artifactId>lesscss-maven-plugin</artifactId>
+				<version>1.2.1</version>
+				<executions>
+					<execution>
+						<id>primefaces</id>
+						<configuration>
+							<sourceDirectory>src/main/resources/less/primefaces-admin
+							</sourceDirectory>
+							<outputDirectory>
+								src/main/webapp/resources/primefaces-admin
+							</outputDirectory>
+							<includes>
+								<include>theme.less</include>
+							</includes>
+							<compress>false</compress>
+						</configuration>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

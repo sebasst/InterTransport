@@ -17,6 +17,7 @@ import com.sagatechs.adminfaces.starter.model.Car;
 /**
  * Created by rmpestano on 07/02/17.
  */
+@SuppressWarnings("serial")
 @ApplicationScoped
 public class Utils implements Serializable {
 

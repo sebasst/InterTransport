@@ -5,7 +5,7 @@
 package com.sagatechs.adminfaces.starter.bean;
 
 
-import static com.github.adminfaces.template.util.Assert.has;
+import static com.sagatechs.adminfaces.starter.util.Assert.has;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -28,7 +28,11 @@ import com.sagatechs.adminfaces.starter.util.Utils;
 public class CarFormMB implements Serializable {
 
 
-    private Integer id;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Integer id;
     private Car car;
 
     @Inject

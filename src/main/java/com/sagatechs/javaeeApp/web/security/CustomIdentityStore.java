@@ -9,10 +9,11 @@ import javax.security.enterprise.credential.UsernamePasswordCredential;
 import javax.security.enterprise.identitystore.CredentialValidationResult;
 import javax.security.enterprise.identitystore.IdentityStore;
 
-@ApplicationScoped
-public class CustomIdentityStore implements IdentityStore {
+//@ApplicationScoped
+public class CustomIdentityStore //implements IdentityStore 
+{
 
-	@Override
+	//@Override
 	public CredentialValidationResult validate(Credential credential) {
 		UsernamePasswordCredential usernamePasswordCredential = (UsernamePasswordCredential) credential;
 

@@ -12,7 +12,7 @@ import org.omnifaces.cdi.ViewScoped;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
-import com.github.adminfaces.template.exception.BusinessException;
+import com.sagatechs.adminfaces.starter.exception.BusinessException;
 import com.sagatechs.adminfaces.starter.infra.model.Filter;
 import com.sagatechs.adminfaces.starter.model.Car;
 import com.sagatechs.adminfaces.starter.service.CarService;
@@ -25,7 +25,12 @@ import com.sagatechs.adminfaces.starter.util.Utils;
 @ViewScoped
 public class CarListMB implements Serializable {
 
-    @Inject
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Inject
     CarService carService;
 
     Integer id;
@@ -41,7 +46,12 @@ public class CarListMB implements Serializable {
     @PostConstruct
     public void initDataModel() {
         cars = new LazyDataModel<Car>() {
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public List<Car> load(int first, int pageSize,
                                   String sortField, SortOrder sortOrder,
                                   Map<String, Object> filters) {
@@ -56,11 +66,14 @@ public class CarListMB implements Serializable {
                         .setParams(filters);
                 List<Car> list = carService.paginate(filter);
                 setRowCount((int) carService.count(filter));
+                
+              
                 return list;
             }
 
             @Override
             public int getRowCount() {
+            	  
                 return super.getRowCount();
             }
 

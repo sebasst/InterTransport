@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
-                template="/admin-top.xhtml"> <!--template="/admin-top.xhtml>" to use horizontal layout -->
+                template="/admin-top.xhtml">
 
     <ui:define name="head">
-        <title>SagaTechs Starter</title>
-        <link rel="shortcut icon" type="image/x-icon" href="#{resource['favicon/favicon.ico']}"/>
-        <link rel="shortcut icon" type="image/x-icon" href="#{resource['favicon/favicon-16x16.png']}" sizes="16x16"/>
-        <link rel="shortcut icon" type="image/x-icon" href="#{resource['favicon/favicon-32x32.png']}" sizes="32x32"/>
-        <link rel="shortcut icon" type="image/x-icon" href="#{resource['favicon/favicon-96x96.png']}" sizes="96x96"/>
-        <link rel="manifest" href="manifest.json"/>
+        <h:outputStylesheet library="css" name="showcase.css"/>
+        <h:outputStylesheet library="css" name="prism.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css"/>
+        <link rel="shortcut icon" type="image/x-icon" href="#{resource['images/favicon.ico']}"/>
+        <link rel="shortcut icon" type="image/x-icon" href="#{resource['images/favicon-32x32.png']}" sizes="32x32"/>
+        <link rel="shortcut icon" type="image/x-icon" href="#{resource['images/favicon-16x16.png']}" sizes="16x16"/>
+        <!-- See https://developers.google.com/web/updates/2014/11/Support-for-theme-color-in-Chrome-39-for-Android -->
         <meta name="theme-color" content="#444"/>
         <meta name="mobile-web-app-capable" content="yes"/>
-        <f:loadBundle var="msg" basename="starter"/>
-        <h:outputStylesheet library="css" name="starter.css"/>
+        <title>AdminFaces Showcase</title>
     </ui:define>
 
     <ui:define name="logo">
-        SagaTechs Starter
+        <b>Admin</b>Faces
     </ui:define>
 
     <ui:define name="menu">
@@ -27,7 +26,13 @@
     </ui:define>
 
     <ui:define name="top-menu">
-        <ui:include src="/includes/top-bar.xhtml"/>
+        <ui:include src="/includes/top-menu.xhtml"/>
+    </ui:define>
+
+    <ui:define name="content-end">
+        <section class="content">
+            <ui:insert name="code"/>
+        </section>
     </ui:define>
 
     <!-- below is just an example on how to define more tabs for control sidebar --> 
@@ -40,20 +45,18 @@
         <ui:include src="/includes/controlsidebar-tabs-content.xhtml"/>
     </ui:define>
 
-
     <ui:define name="footer">
         <a target="_blank"
-           href="https://github.com/adminfaces/">
-            Copyright (C) 2019 - Saga Techs
+           href="https://github.com/adminfaces">
+            Powered by AdminFaces - © 2017-2019
         </a>
-
         <div class="pull-right hidden-xs" style="color: gray">
-            <i>#{msg['starter.version']}</i>
+            <i>#{adm['admin.version']}</i>
         </div>
-
-        <h:outputScript library="js" name="starter.js" target="head"/>
-        
     </ui:define>
 
+    <ui:define name="after-wrapper">
+        <h:outputScript library="js" name="prism.js"  target="head"/>
+    </ui:define>
 
 </ui:composition>

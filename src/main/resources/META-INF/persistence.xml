@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.2"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+	<!-- Define persistence unit -->
+	<persistence-unit name="main-persistence-unit" transaction-type="JTA">
+		<jta-data-source >java:jboss/datasources/SagaTechs</jta-data-source>
+
+		<exclude-unlisted-classes>false</exclude-unlisted-classes>
+		<shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
+		<validation-mode>AUTO</validation-mode>
+		<properties>
+			<property name="hibernate.dialect"
+				value="org.hibernate.dialect.PostgreSQL95Dialect" />
+
+			<property
+				name="javax.persistence.schema-generation.database.action"
+				value="create" />
+			<property
+				name="javax.persistence.schema-generation.create-source"
+				value="script-then-metadata" />
+			<property
+				name="javax.persistence.schema-generation.create-script-source"
+				value="META-INF/scripts/precreateDatabase.sql" />
+			<property
+				name="javax.persistence.schema-generation.drop-source"
+				value="metadata-then-script" />
+			<property
+				name="javax.persistence.schema-generation.drop-script-source"
+				value="META-INF/scripts/postdropDatabase.sql" />
+			<property
+				name="javax.persistence.schema-generation.create-database-schemas"
+				value="true" />
+			<property
+				name="javax.persistence.schema-generation.scripts.create-target"
+				value="META-INF/scripts/createDatabase.sql" />
+			<property
+				name="javax.persistence.schema-generation.scripts.drop-target"
+				value="META-INF/scripts/dropDatabase.sql" />
+			<property name="javax.persistence.sql-load-script-source"
+				value="META-INF/scripts/data.sql" />
+		</properties>
+	</persistence-unit>
+</persistence>

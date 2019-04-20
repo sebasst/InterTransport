@@ -5,7 +5,7 @@
 package com.sagatechs.adminfaces.starter.service;
 
 
-import static com.github.adminfaces.template.util.Assert.has;
+import static com.sagatechs.adminfaces.starter.util.Assert.has;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,8 +15,9 @@ import java.util.stream.Collectors;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.security.enterprise.SecurityContext;
 
-import com.github.adminfaces.template.exception.BusinessException;
+import com.sagatechs.adminfaces.starter.exception.BusinessException;
 import com.sagatechs.adminfaces.starter.infra.model.Filter;
 import com.sagatechs.adminfaces.starter.infra.model.SortOrder;
 import com.sagatechs.adminfaces.starter.model.Car;
@@ -34,6 +35,9 @@ public class CarService implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Inject
     List<Car> allCars;
+	
+	@Inject
+	private SecurityContext securityContext;
 
     public List<Car> listByModel(String model) {
         return allCars.stream()
@@ -43,6 +47,8 @@ public class CarService implements Serializable {
     }
 
     public List<Car> paginate(Filter<Car> filter) {
+    	
+    	//String user=securityContext.getCallerPrincipal().getName();
         List<Car> pagedCars = new ArrayList<>();
         if(has(filter.getSortOrder()) && !SortOrder.UNSORTED.equals(filter.getSortOrder())) {
                 pagedCars = allCars.stream().
