@@ -1,7 +1,6 @@
 package com.sagatechs.javaeeApp.dao.base;
 
 import java.io.Serializable;
-import java.lang.reflect.ParameterizedType;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
@@ -12,6 +11,7 @@ import javax.persistence.criteria.CriteriaQuery;
 
 import com.sagatechs.javaeeApp.model.base.BaseEntity;
 
+@SuppressWarnings("rawtypes")
 public abstract class GenericDaoJpa<T extends BaseEntity, PK extends Serializable> {
 
 	@PersistenceContext(unitName = "main-persistence-unit")
@@ -20,11 +20,9 @@ public abstract class GenericDaoJpa<T extends BaseEntity, PK extends Serializabl
 	protected Class<T> entityClass;
 	protected Class<PK> entityPKClass;
 
-	@SuppressWarnings("unchecked")
-	public GenericDaoJpa() {
-		ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
-		this.entityClass = (Class<T>) genericSuperclass.getActualTypeArguments()[0];
-		this.entityPKClass = (Class<PK>) genericSuperclass.getActualTypeArguments()[1];
+	public GenericDaoJpa(Class<T> entityClass, Class<PK> entityPKClass) {
+		this.entityClass = entityClass;
+		this.entityPKClass = entityPKClass;
 	}
 
 	@SuppressWarnings("unused")

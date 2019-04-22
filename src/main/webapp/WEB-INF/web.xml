@@ -10,6 +10,19 @@
 		</cookie-config>
 		<tracking-mode>COOKIE</tracking-mode>
 	</session-config>
+	
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Public pages</web-resource-name>
+			<url-pattern>/login.xhtml</url-pattern>
+			<url-pattern>/helloworld.xhtml</url-pattern>
+			<url-pattern>/index.xhtml</url-pattern>
+			<url-pattern>/templates/*</url-pattern>
+			<url-pattern>/includes/*</url-pattern>
+			<url-pattern>/resources/*</url-pattern>
+			
+		</web-resource-collection>
+	</security-constraint>
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>Admin
@@ -31,18 +44,12 @@
 			<role-name>USER</role-name>
 		</auth-constraint>
 	</security-constraint>
-	<security-constraint>
-		<web-resource-collection>
-			<web-resource-name>Public pages</web-resource-name>
-			<url-pattern>/login.xhtml</url-pattern>
-			<url-pattern>/helloworld.xhtml</url-pattern>
-		</web-resource-collection>
-	</security-constraint>
+	
 
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>Authorize user pages</web-resource-name>
-			<url-pattern>/api/tokens/*</url-pattern>
+			<url-pattern>/api/*</url-pattern>
 		</web-resource-collection>
 		<!-- OMIT auth-constraint -->
 	</security-constraint>

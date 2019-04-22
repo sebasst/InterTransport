@@ -1,1 +1,2 @@
-CREATE SCHEMA app_config ;
+CREATE SCHEMA IF NOT EXISTS app_config ;
+CREATE SCHEMA IF NOT EXISTS security;

@@ -17,7 +17,7 @@ import com.sagatechs.javaeeApp.model.base.BaseEntity;
 import com.sagatechs.javaeeApp.model.enums.AppConfigurationKey;
 
 @Entity
-@Table(name = "app_config", schema = "appConfig")
+@Table(name = "app_config", schema = "app_config")
 @NamedQuery(name = AppConfiguration.QUERY_FIND_BY_CLAVE, query = "SELECT o FROM AppConfiguration o WHERE o.clave=:"
 		+ AppConfiguration.QUERY_PARAM_CLAVE)
 public class AppConfiguration extends BaseEntity<Long> {

@@ -13,7 +13,7 @@ import com.sagatechs.javaeeApp.model.enums.AppConfigurationKey;
 public class AppConfigurationDao extends GenericDaoJpa<AppConfiguration, Long>{
 
 	public AppConfigurationDao() {
-		super();
+		super(AppConfiguration.class, Long.class);
 		
 	}
 	
