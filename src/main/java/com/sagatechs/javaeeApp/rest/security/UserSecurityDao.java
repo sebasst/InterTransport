@@ -6,7 +6,7 @@ import javax.persistence.Query;
 
 import com.sagatechs.javaeeApp.dao.base.GenericDaoJpa;
 import com.sagatechs.javaeeApp.model.base.Status;
-import com.sagatechs.javaeeApp.rest.model.UserSecurity;
+import com.sagatechs.javaeeApp.rest.security.model.UserSecurity;
 
 @Stateless
 public class UserSecurityDao extends GenericDaoJpa<UserSecurity, Long> {
@@ -34,6 +34,17 @@ public class UserSecurityDao extends GenericDaoJpa<UserSecurity, Long> {
 	public UserSecurity getByUsername(String username) {
 		Query query = getEntityManager().createNamedQuery(UserSecurity.QUERY_FIND_BY_USERNAME, UserSecurity.class);
 		query.setParameter(UserSecurity.QUERY_PARAM_USERNAME, username);
+		try {
+			return (UserSecurity) query.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
+
+	}
+	
+	public UserSecurity getByEmail(String email) {
+		Query query = getEntityManager().createNamedQuery(UserSecurity.QUERY_FIND_BY_EMAIL, UserSecurity.class);
+		query.setParameter(UserSecurity.QUERY_PARAM_EMAIL, email);
 		try {
 			return (UserSecurity) query.getSingleResult();
 		} catch (NoResultException e) {

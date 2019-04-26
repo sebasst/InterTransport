@@ -1,4 +1,4 @@
-package com.sagatechs.javaeeApp.rest.model;
+package com.sagatechs.javaeeApp.rest.security.model;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -18,7 +18,6 @@ import javax.validation.constraints.NotNull;
 
 import com.sagatechs.javaeeApp.model.base.BaseEntity;
 import com.sagatechs.javaeeApp.model.base.Status;
-import com.sagatechs.javaeeApp.rest.security.Role;
 
 @Entity
 @Table(name = "role", schema = "security")

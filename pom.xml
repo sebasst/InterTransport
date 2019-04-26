@@ -55,7 +55,7 @@
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-jackson</artifactId>
 			<version>${version.io.jsonwebtoken}</version>
-		</dependency> 
+		</dependency>
 		<!-- Uncomment this next dependency if you want to use RSASSA-PSS (PS256, 
 			PS384, PS512) algorithms: <dependency> <groupId>org.bouncycastle</groupId> 
 			<artifactId>bcprov-jdk15on</artifactId> <version>1.60</version> <scope>runtime</scope> 
@@ -210,6 +210,11 @@
 			<groupId>org.jboss.arquillian.protocol</groupId>
 			<artifactId>arquillian-protocol-servlet</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<scope>provided</scope>
 		</dependency>
 
 	</dependencies>

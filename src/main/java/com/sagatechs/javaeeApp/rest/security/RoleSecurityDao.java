@@ -8,8 +8,8 @@ import javax.persistence.Query;
 
 import com.sagatechs.javaeeApp.dao.base.GenericDaoJpa;
 import com.sagatechs.javaeeApp.model.base.Status;
-import com.sagatechs.javaeeApp.rest.model.RoleSecurity;
-import com.sagatechs.javaeeApp.rest.model.UserSecurity;
+import com.sagatechs.javaeeApp.rest.security.model.Role;
+import com.sagatechs.javaeeApp.rest.security.model.RoleSecurity;
 
 @Stateless
 public class RoleSecurityDao extends GenericDaoJpa<RoleSecurity, Long> {

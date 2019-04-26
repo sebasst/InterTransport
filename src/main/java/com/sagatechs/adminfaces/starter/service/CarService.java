@@ -17,10 +17,10 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.security.enterprise.SecurityContext;
 
-import com.sagatechs.adminfaces.starter.exception.BusinessException;
 import com.sagatechs.adminfaces.starter.infra.model.Filter;
 import com.sagatechs.adminfaces.starter.infra.model.SortOrder;
 import com.sagatechs.adminfaces.starter.model.Car;
+import com.sagatechs.javaeeApp.exceptions.BusinessException;
 
 /**
  * @author rmpestano

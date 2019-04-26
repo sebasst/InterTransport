@@ -142,7 +142,7 @@
 		<location>/403.xhtml</location>
 	</error-page>
 	<error-page>
-		<exception-type>com.sagatechs.adminfaces.starter.exception.AccessDeniedException</exception-type>
+		<exception-type>com.sagatechs.javaeeApp.exceptions.AccessDeniedException</exception-type>
 		<location>/403.xhtml</location>
 	</error-page>
 	<error-page>

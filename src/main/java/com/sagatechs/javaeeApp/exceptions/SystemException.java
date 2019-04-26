@@ -1,4 +1,4 @@
-package com.sagatechs.adminfaces.starter.exception;
+package com.sagatechs.javaeeApp.exceptions;
 public class SystemException extends BusinessException {
 
     /**

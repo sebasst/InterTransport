@@ -12,11 +12,11 @@ import org.omnifaces.cdi.ViewScoped;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
-import com.sagatechs.adminfaces.starter.exception.BusinessException;
 import com.sagatechs.adminfaces.starter.infra.model.Filter;
 import com.sagatechs.adminfaces.starter.model.Car;
 import com.sagatechs.adminfaces.starter.service.CarService;
 import com.sagatechs.adminfaces.starter.util.Utils;
+import com.sagatechs.javaeeApp.exceptions.BusinessException;
 
 /**
  * Created by rmpestano on 12/02/17.

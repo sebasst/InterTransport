@@ -23,7 +23,7 @@
 	</application>
 
 	<factory>
-		<exception-handler-factory>com.sagatechs.adminfaces.starter.exception.CustomExceptionHandlerFactory</exception-handler-factory>
+		<exception-handler-factory>com.sagatechs.javaeeApp.exceptions.CustomExceptionHandlerFactory</exception-handler-factory>
 	</factory>
 
 </faces-config>

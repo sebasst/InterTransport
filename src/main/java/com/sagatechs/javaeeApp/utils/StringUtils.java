@@ -9,12 +9,18 @@ import javax.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class StringUtils {
 
-	public byte[] encryptPassword(String password) throws NoSuchAlgorithmException {
+	public byte[] encryptPassword(String password)  {
 		MessageDigest md;
 
-		md = MessageDigest.getInstance("SHA-512");
-		byte[] pass = md.digest(password.getBytes(StandardCharsets.UTF_8));
-		return pass;
+		try {
+			md = MessageDigest.getInstance("SHA-512");
+			byte[] pass = md.digest(password.getBytes(StandardCharsets.UTF_8));
+			return pass;
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+			return null;
+		}
+		
 
 	}
 

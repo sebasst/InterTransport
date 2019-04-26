@@ -4,8 +4,8 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
-import com.sagatechs.adminfaces.starter.exception.BusinessException;
 import com.sagatechs.adminfaces.starter.model.Car;
+import com.sagatechs.javaeeApp.exceptions.BusinessException;
 
 @Path("testsecured")
 public class TestSecured {
@@ -30,6 +30,7 @@ public class TestSecured {
 		return car;
 	}
 	
+	@SuppressWarnings("unused")
 	@Path("error")
 	@GET
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)

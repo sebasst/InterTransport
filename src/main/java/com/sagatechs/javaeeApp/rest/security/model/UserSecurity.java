@@ -1,4 +1,4 @@
-package com.sagatechs.javaeeApp.rest.model;
+package com.sagatechs.javaeeApp.rest.security.model;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -26,18 +26,22 @@ import com.sagatechs.javaeeApp.model.base.BaseEntity;
 import com.sagatechs.javaeeApp.model.base.Status;
 
 @Entity
-@Table(name = "user", schema = "security", indexes = { @Index(name = "user_username_index", columnList = "username") })
+@Table(name = "user", schema = "security", indexes = { @Index(name = "user_username_index", columnList = "username"), @Index(name = "user_email_index", columnList = "email")  })
 @NamedQuery(name = UserSecurity.QUERY_FIND_BY_USERNAME_AND_STATUS, query = "SELECT o FROM UserSecurity o WHERE o.username = :"
 		+ UserSecurity.QUERY_PARAM_USERNAME + " AND o.status = :" + UserSecurity.QUERY_PARAM_STATUS)
 @NamedQuery(name = UserSecurity.QUERY_FIND_BY_USERNAME, query = "SELECT o FROM UserSecurity o WHERE o.username = :"
 		+ UserSecurity.QUERY_PARAM_USERNAME )
+@NamedQuery(name = UserSecurity.QUERY_FIND_BY_EMAIL, query = "SELECT o FROM UserSecurity o WHERE o.email = :"
+		+ UserSecurity.QUERY_PARAM_EMAIL)
 public class UserSecurity extends BaseEntity<Long> {
 
 	public static final String QUERY_FIND_BY_USERNAME_AND_STATUS = "UserSecurity.FindByUsernameAndStatus";
 	public static final String QUERY_FIND_BY_USERNAME = "UserSecurity.FindByUsername";
+	public static final String QUERY_FIND_BY_EMAIL = "UserSecurity.FindByEmail";
 
 	public static final String QUERY_PARAM_USERNAME = "username";
 	public static final String QUERY_PARAM_STATUS = "status";
+	public static final String QUERY_PARAM_EMAIL = "email";
 
 	
 	
@@ -64,6 +68,13 @@ public class UserSecurity extends BaseEntity<Long> {
 	@NotEmpty(message = "El nombre de usuario es un dato obligatorio")
 	@Column(name = "username", nullable = false, length = 50, unique = true)
 	private String username;
+	
+	
+	@Column(name = "phone_number", nullable = true, length = 50, unique = false)
+	private String phoneNumber;
+	
+	@Column(name = "email", nullable = true, length = 50, unique = true)
+	private String email;
 
 	@Column(name = "password", nullable = false)
 	private byte[] password;
@@ -81,6 +92,8 @@ public class UserSecurity extends BaseEntity<Long> {
 	@Column(name = "status", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private Status status;
+	
+	
 	
 	@ManyToMany(fetch =  FetchType.LAZY)
     @JoinTable(name = "user_role", schema = "security",
@@ -152,6 +165,31 @@ public class UserSecurity extends BaseEntity<Long> {
 	public void setRoles(Set<RoleSecurity> roles) {
 		this.roles = roles;
 	}
+
+
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 
 	
 	

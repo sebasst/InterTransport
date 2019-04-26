@@ -1,4 +1,4 @@
-package com.sagatechs.adminfaces.starter.exception;
+package com.sagatechs.javaeeApp.exceptions;
 
 
 import static com.sagatechs.adminfaces.starter.util.Assert.has;
@@ -41,7 +41,7 @@ import com.sagatechs.adminfaces.starter.util.Constants;
  */
 public class CustomExceptionHandler extends ExceptionHandlerWrapper {
 
-    private static final Logger logger = Logger.getLogger(CustomExceptionHandler.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(CustomExceptionHandler.class.getName());
     private ExceptionHandler wrapped;
 
     @SuppressWarnings("deprecation")
@@ -101,7 +101,7 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
         }
 
         if (e instanceof FileNotFoundException) {
-            logger.log(Level.WARNING,"File not found", e);
+            LOGGER.log(Level.WARNING,"File not found", e);
             throw new FacesException(e);
         }
 

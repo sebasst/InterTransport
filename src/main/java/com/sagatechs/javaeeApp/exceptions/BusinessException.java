@@ -1,4 +1,4 @@
-package com.sagatechs.adminfaces.starter.exception;
+package com.sagatechs.javaeeApp.exceptions;
 
 import javax.ejb.ApplicationException;
 import javax.faces.application.FacesMessage;

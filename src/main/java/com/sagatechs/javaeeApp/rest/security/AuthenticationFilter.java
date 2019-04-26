@@ -17,8 +17,6 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.Provider;
 
-import com.sagatechs.javaeeApp.exceptions.UnauthorizedException;
-
 @Secured
 @Provider
 @Priority(Priorities.AUTHENTICATION)
@@ -116,7 +114,5 @@ public class AuthenticationFilter implements ContainerRequestFilter {
 				.header(HttpHeaders.WWW_AUTHENTICATE, AUTHENTICATION_SCHEME + " realm=\"" + REALM + "\"").build());
 	}
 
-	private String validateToken(String token)  {
-		return userSecurityService.validateToken(token);
-	}
+	
 }

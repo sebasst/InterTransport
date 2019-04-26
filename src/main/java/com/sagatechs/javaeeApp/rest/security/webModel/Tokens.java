@@ -1,4 +1,4 @@
-package com.sagatechs.javaeeApp.rest.model;
+package com.sagatechs.javaeeApp.rest.security.webModel;
 
 public class Tokens {
 
